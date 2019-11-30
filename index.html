@@ -11,7 +11,7 @@
   <!-- Added a link to Bootstrap-->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
 
-  <title>Password Generator</title>
+  <title>Coding Quiz</title>
   <link rel="stylesheet" href="./assets/style.css">
 </head>
 <body>
@@ -31,11 +31,26 @@
 
     
     <button id="start">Start Game</button> 
+    <div id="modal-container" class="modal">
+      <div class="modal-content">
+          <div class="modal-header">
+            <h2 id="modal-name">
+            </h2>
+          </div>
+          <div class="modal-body">
+            <button id="A"></button>
+            <button id="B"></button>
+            <button id="C"></button>
+            <button id="D"></button>
+          </div>
+        </div>
+      </div>
     <button id="scores">High Scores</button>
      
 
   </div>
   <script src="./assets/script.js"></script>
+  <script src="./assets/questions.js"></script>
 </body>
 
 </html>
