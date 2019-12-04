@@ -1,9 +1,13 @@
 var timer = document.getElementById("timer");
 var startButton = document.getElementById("start");
-var highScores = document.getElementById("scores");
 var modalE1 = document.querySelector("#modal-container");
 var modalNameE1 = document.querySelector("#modal-name");
-var modalBody = document.querySelector(".modal-body");
+var modalBody = document.querySelector("#questions-modal");
+var scores = document.querySelector("#scores");
+var modalTable = document.querySelector("#modalTable");
+var closeE1 = document.querySelector(".close");
+var scoreboard = document.querySelector("#scoreboard");
+
 var choiceA = document.getElementById("0");
 var choiceB = document.getElementById("1");
 var choiceC = document.getElementById("2");
@@ -15,6 +19,24 @@ var secondsLeft = 0;
 var score = 75;
 var currentId = 0;
 var highScores = [];
+var timerInterval;
+
+function getScores(){
+  var scoreList = JSON.parse(localStorage.getItem("highscores"));
+
+  if (scoreList !== null){
+    
+    highScores = scoreList;
+
+  }
+};
+
+getScores();
+
+function close () {
+  modalE1.style.display = "none";
+  modalTable.style.display = "none";
+};
 
 function gameOver() {
   if (secondsLeft > 0){
@@ -24,14 +46,20 @@ function gameOver() {
   else {
     score = 0;
   }
-
-  var userScore = prompt("Enter your initials!");
-  alert("Your score is " + score);
+  
+  close();
+  var yourName = prompt("Enter your initials!");
+  var yourScore = score;
+  highScores.push({username: yourName, userScore: yourScore});
+  highScores.sort((a,b) => (a.userScore > b.userScore) ? -1 : 1);
+  console.log(highScores);
+  localStorage.setItem("highscores", JSON.stringify(highScores));
+  alert("Your score is " + yourScore);
   
 };
 
 function setTime() {
-  var timerInterval = setInterval(function() {
+  timerInterval = setInterval(function() {
     secondsLeft = localStorage.getItem("time");
     secondsLeft--;
     timer.textContent = secondsLeft + " seconds";
@@ -41,6 +69,7 @@ function setTime() {
       clearInterval(timerInterval);
       gameOver();
     }
+
   }, 1000);   
 };
 
@@ -55,7 +84,6 @@ function askQuestion() {
  }
 
  
-
  function handleClick(event) {
   if (event.target.matches("button")) {
     event.preventDefault();
@@ -80,13 +108,24 @@ function askQuestion() {
   console.log(currentId);
 
   if (currentId >= questions.length){
-      gameOver();
+    
+    gameOver();
+    clearInterval(timerInterval);
+
   }
   else{
   askQuestion();
   }}
   
 }
+
+function listHighscores() {
+  modalTable.style.display = "block";
+  $(".table tbody").empty();
+  for(var i = 0; i < highScores.length; i++){
+    $(".table").append('<tr><td>' + (Number(i)+1) + '</td><td> ' + highScores[i].username + '</td><td>'
+    + highScores[i].userScore + '</td></tr>');}
+};
 
 
 //function redirect() {
@@ -96,5 +135,5 @@ function askQuestion() {
 startButton.addEventListener("click", setTime);
 startButton.addEventListener("click", askQuestion);
 modalBody.addEventListener("click", handleClick);
-highScores.addEventListener("click", function(){window.location.href = "High-Scores.html";});
-
+scores.addEventListener("click", listHighscores);
+closeE1.addEventListener("click", close);
