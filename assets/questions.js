@@ -1,13 +1,15 @@
-var startButton = document.getElementById("start");
+//var startButton = document.getElementById("start");
 
-var modalEl = document.querySelector("#modal-container");
-var modalNameE1 = document.querySelector("#modal-name");
-var choiceA = document.querySelector("#A");
-var choiceB = document.querySelector("#B");
-var choiceC = document.querySelector("#C");
-var choiceD = document.querySelector("#D");
+//var modalEl = document.querySelector("#modal-container");
+//var modalNameE1 = document.querySelector("#modal-name");
+//var modalBody = document.querySelector(".modal-body");
+//var choiceA = document.getElementById("0");
+//var choiceB = document.getElementById("1");
+//var choiceC = document.getElementById("2");
+//var choiceD = document.getElementById("3");
 
-var currentId = 0;
+//var currentId = 0;
+//var time = 0;
 
 var questions = [
     {
@@ -41,7 +43,7 @@ var questions = [
     },
   ];
 
-  function askQuestions() {
+/* function askQuestion() {
     modalEl.style.display = "block";
     var questionTitle = questions[currentId].title;
     modalNameE1.textContent = questionTitle;
@@ -51,4 +53,37 @@ var questions = [
     choiceD.textContent = questions[currentId].choices[3];
    }
 
-   startButton.addEventListener("click", askQuestions);
+   function handleClick(event) {
+    if (event.target.matches("button")) {
+      event.preventDefault();
+      console.log("currentId: " + currentId);
+      var choice = questions[currentId].choices[event.target.id];
+      console.log("choice: " + choice);
+      var answer = questions[currentId].answer;
+      console.log("answer: " + answer);  
+
+    if(choice == answer) {
+      console.log("correct");
+    } else {
+      console.log("incorrect");
+      time = Number(localStorage.getItem("time"));
+      time = time - 15;
+      console.log("time: " + time);
+      localStorage.setItem("time", time);
+
+    }
+
+    currentId++;
+    console.log(currentId);
+
+    if (currentId >= questions.length){
+        gameOver();
+    }
+    else{
+    askQuestion();
+    }}
+    
+}
+startButton.addEventListener("click", askQuestion);
+modalBody.addEventListener("click", handleClick);*/
+  //-->
